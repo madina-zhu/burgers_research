@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+venv_burgers/
+
+# IDE
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# DeepXDE outputs
+*.dat
+
+# Plots / results
+*.png
+
+# System files
+.DS_Store
+Thumbs.dbvenv_burgers_tf/
+results/
+__pycache__/
+*.pyc
+.idea/
+venv_burgers_tf/
