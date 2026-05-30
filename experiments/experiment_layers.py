@@ -1,5 +1,5 @@
 """
-Эксперимент: сравнение PINN с разным количеством слоёв
+Эксперимент: сравнение FCNN с разным количеством слоёв
 """
 
 import os
@@ -88,7 +88,7 @@ errors = [r["l2_error"] for r in results]
 plt.figure(figsize=(10, 6))
 bars = plt.bar(names, errors, color=['blue', 'green', 'red', 'purple'])
 plt.ylabel("L2 relative error")
-plt.title("Сравнение PINN с разным количеством слоёв")
+plt.title("Сравнение FCNN с разным количеством слоёв")
 plt.yscale("log")
 
 # Подписываем значения на столбцах

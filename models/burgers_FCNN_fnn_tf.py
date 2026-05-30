@@ -1,8 +1,8 @@
 """
-PINN для одномерного уравнения Бюргерса
+FCNN для одномерного уравнения Бюргерса
 DeepXDE + TensorFlow (бэкенд)
 
-PINN - Physics-Informed Neural Network
+FCNN - Physics-Informed Neural Network
 Физически информированная нейронная сеть
 """
 import os
@@ -224,7 +224,7 @@ f = model.predict(X_test, operator=pde)
 l2_error = dde.metrics.l2_relative_error(y_true, y_pred)
 
 # Выводим результаты
-print("\n========== PINN RESULTS ==========")
+print("\n========== FCNN RESULTS ==========")
 # Средняя абсолютная невязка PDE (должна быть близка к 0)
 print("Mean PDE residual:", np.mean(np.abs(f)))
 # Относительная ошибка L2 (0.00323 = 0.32%)
@@ -240,7 +240,7 @@ results = np.hstack((X_test, y_true, y_pred))
 
 # Сохраняем в текстовый файл
 np.savetxt(
-    "results/pinn_predictions.dat",
+    "results/FCNN_predictions.dat",
     results,
     header="x t u_true u_pred"  # заголовок с названиями столбцов
 )
@@ -269,14 +269,14 @@ plt.xlabel("Iteration")
 # Подпись оси Y
 plt.ylabel("Loss")
 # Заголовок графика
-plt.title("PINN Training Loss")
+plt.title("FCNN Training Loss")
 # Включаем сетку для удобства чтения
 plt.grid(True)
 # Автоматическое выравнивание элементов
 plt.tight_layout()
 
 # Сохраняем график в файл с высоким разрешением (300 dpi)
-plt.savefig("results/pinn_loss.png", dpi=300)
+plt.savefig("results/FCNN_loss.png", dpi=300)
 
 # Закрываем фигуру (освобождаем память)
 plt.close()
@@ -320,19 +320,19 @@ ax.set_ylabel("t")
 # Подпись оси Z (решение)
 ax.set_zlabel("u(x,t)")
 # Заголовок
-ax.set_title("PINN Burgers Solution")
+ax.set_title("FCNN Burgers Solution")
 
 # Автоматическое выравнивание
 plt.tight_layout()
 
 # Сохраняем 3D график в файл
-plt.savefig("results/pinn_solution.png", dpi=300)
+plt.savefig("results/FCNN_solution.png", dpi=300)
 
 # Закрываем фигуру
 plt.close()
 
 # Выводим информацию о сохранённых файлах
 print("\nSaved:")
-print(" - results/pinn_predictions.dat")
-print(" - results/pinn_loss.png")
-print(" - results/pinn_solution.png")
+print(" - results/FCNN_predictions.dat")
+print(" - results/FCNN_loss.png")
+print(" - results/FCNN_solution.png")

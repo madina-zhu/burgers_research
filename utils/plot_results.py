@@ -7,15 +7,15 @@ import os
 # ПРОВЕРКА СУЩЕСТВОВАНИЯ ФАЙЛОВ РЕЗУЛЬТАТОВ
 # =====================================================
 
-# Путь к файлу с результатами PINN (предсказания и истинные значения)
-pinn_file = "results/pinn_predictions.dat"
+# Путь к файлу с результатами FCNN (предсказания и истинные значения)
+FCNN_file = "results/FCNN_predictions.dat"
 # Путь к файлу с результатами DeepONet
 deeponet_file = "results/deeponet_predictions.dat"
 
-# Проверяем, существует ли файл PINN
+# Проверяем, существует ли файл FCNN
 # Если нет - вызываем ошибку, чтобы скрипт не продолжал работу
-if not os.path.exists(pinn_file):
-    raise FileNotFoundError(f"{pinn_file} not found")
+if not os.path.exists(FCNN_file):
+    raise FileNotFoundError(f"{FCNN_file} not found")
 
 # Проверяем, существует ли файл DeepONet
 if not os.path.exists(deeponet_file):
@@ -23,22 +23,22 @@ if not os.path.exists(deeponet_file):
 
 
 # =====================================================
-# ЗАГРУЗКА РЕЗУЛЬТАТОВ PINN
+# ЗАГРУЗКА РЕЗУЛЬТАТОВ FCNN
 # =====================================================
 
-# Загружаем данные из текстового файла PINN
+# Загружаем данные из текстового файла FCNN
 # loadtxt читает столбцы чисел из текстового файла
-pinn_data = np.loadtxt(pinn_file)
+FCNN_data = np.loadtxt(FCNN_file)
 
 # Структура файла: [x, t, u_true, u_pred]
 # Извлекаем первый столбец (индекс 0) - координата x
-x_pinn = pinn_data[:, 0]
+x_FCNN = FCNN_data[:, 0]
 # Извлекаем второй столбец (индекс 1) - координата t
-t_pinn = pinn_data[:, 1]
+t_FCNN = FCNN_data[:, 1]
 # Извлекаем третий столбец (индекс 2) - истинное решение u_true
-u_true_pinn = pinn_data[:, 2]
-# Извлекаем четвёртый столбец (индекс 3) - предсказание PINN u_pred
-u_pred_pinn = pinn_data[:, 3]
+u_true_FCNN = FCNN_data[:, 2]
+# Извлекаем четвёртый столбец (индекс 3) - предсказание FCNN u_pred
+u_pred_FCNN = FCNN_data[:, 3]
 
 
 # =====================================================
@@ -66,7 +66,7 @@ u_pred_deep = deeponet_data[:, 3]
 plt.figure(figsize=(12, 5))
 
 # =====================================================
-# ЛЕВЫЙ ГРАФИК: РЕЗУЛЬТАТЫ PINN
+# ЛЕВЫЙ ГРАФИК: РЕЗУЛЬТАТЫ FCNN
 # =====================================================
 
 # subplot(1, 2, 1) означает:
@@ -74,30 +74,30 @@ plt.figure(figsize=(12, 5))
 plt.subplot(1, 2, 1)
 
 # Рисуем истинные значения (True) - синяя сплошная линия
-# u_true_pinn[:1000] - берём первые 1000 точек для наглядности
+# u_true_FCNN[:1000] - берём первые 1000 точек для наглядности
 # linewidth=2 - толщина линии 2 пикселя
 plt.plot(
-    u_true_pinn[:1000],
+    u_true_FCNN[:1000],
     label="True",      # подпись для легенды
     linewidth=2
 )
 
-# Рисуем предсказания PINN - оранжевая пунктирная линия
+# Рисуем предсказания FCNN - оранжевая пунктирная линия
 # "--" означает пунктирный стиль линии
 plt.plot(
-    u_pred_pinn[:1000],
+    u_pred_FCNN[:1000],
     "--",              # пунктирная линия
-    label="PINN",      # подпись для легенды
+    label="FCNN",      # подпись для легенды
     linewidth=2
 )
 
 # Заголовок левого графика
-plt.title("PINN Prediction")
+plt.title("FCNN Prediction")
 # Подпись оси X
 plt.xlabel("Point index")
 # Подпись оси Y (значение решения u)
 plt.ylabel("u(x,t)")
-# Добавляем легенду (отображает label: True, PINN)
+# Добавляем легенду (отображает label: True, FCNN)
 plt.legend()
 # Включаем сетку для удобства чтения
 plt.grid(True)

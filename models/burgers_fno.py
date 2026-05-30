@@ -6,7 +6,7 @@ Fourier Neural Operator (FNO)
 Почему PyTorch, а не TensorFlow?
 - Официальная библиотека neuraloperator существует только для PyTorch
 - Ручная реализация спектральной свертки на TF требует работы с комплексными числами
-- Задание требует TensorFlow в первую очередь (PINN и DeepONet на TF),
+- Задание требует TensorFlow в первую очередь (FCNN и DeepONet на TF),
   но не запрещает PyTorch для сравнения
 """
 

@@ -4,7 +4,7 @@
 
 Данный проект посвящён **сравнительному анализу трёх нейросетевых архитектур** для решения одномерного уравнения Бюргерса:
 
-- **PINN** (Physics-Informed Neural Network) — физически информированная нейронная сеть
+- **FCNN** (Fully Connected Neural Network) — физически информированная нейронная сеть
 - **DeepONet** (Deep Operator Network) — глубокая операторная сеть
 - **FNO** (Fourier Neural Operator) — оператор Фурье
 
@@ -18,24 +18,24 @@ $$u_t + u u_x - \nu u_{xx} = 0, \quad \nu = 0.01/\pi$$
 burgers_research-main/
 │
 ├── models/                          # Основные модели
-│   ├── burgers_pinn_fnn_tf.py       # PINN (TensorFlow + DeepXDE)
+│   ├── burgers_FCNN_fnn_tf.py       # FCNN (TensorFlow + DeepXDE)
 │   ├── burgers_deeponet.py          # DeepONet (TensorFlow + DeepXDE)
 │   └── burgers_fno.py               # FNO (PyTorch)
 │
 ├── experiments/                     # Эксперименты
-│   ├── experiment_layers.py         # Сравнение PINN с разным кол-вом слоёв
+│   ├── experiment_layers.py         # Сравнение FCNN с разным кол-вом слоёв
 │   └── visualize_analytic.py        # Визуализация аналитического решения
 │
 ├── utils/                           # Вспомогательные скрипты
-│   ├── plot_results.py              # Сравнение PINN и DeepONet
+│   ├── plot_results.py              # Сравнение FCNN и DeepONet
 │   └── visualize_dataset.py         # Визуализация датасета
 │
 ├── dataset/                         # Данные
 │   └── Burgers.npz                  # Эталонное решение (DeepXDE)
 │
 ├── results/                         # Результаты (создаётся автоматически)
-│   ├── pinn_loss.png
-│   ├── pinn_solution.png
+│   ├── FCNN_loss.png
+│   ├── FCNN_solution.png
 │   ├── deeponet_loss.png
 │   ├── deeponet_prediction.png
 │   ├── fno_loss.png
@@ -45,9 +45,11 @@ burgers_research-main/
 │   ├── analytic_solution_2d.png
 │   ├── analytic_solution_3d.png
 │   ├── analytic_vs_numerical.png
+│   ├── all_models_comparison.png
 │   └── dataset_visualization.png
 │
-├── requirements.txt                 # Зависимости
+├── plot_all_comparison.py 
+├── requirements.txt
 └── README.md
 ```
 
@@ -78,8 +80,8 @@ pip install -r requirements.txt
 ### 4. Запуск моделей
 
 ```bash
-# PINN
-python3 models/burgers_pinn_fnn_tf.py
+# FCNN
+python3 models/burgers_FCNN_fnn_tf.py
 
 # DeepONet
 python3 models/burgers_deeponet.py
@@ -87,10 +89,10 @@ python3 models/burgers_deeponet.py
 # FNO
 python3 models/burgers_fno.py
 
-# Сравнение PINN и DeepONet
+# Сравнение FCNN и DeepONet
 python3 utils/plot_results.py
 
-# Эксперимент со слоями PINN
+# Эксперимент со слоями FCNN
 python3 experiments/experiment_layers.py
 
 # Визуализация датасета
@@ -98,17 +100,21 @@ python3 utils/visualize_dataset.py
 
 # Визуализация аналитического решения
 python3 experiments/visualize_analytic.py
+
+# Общий график сравнения: True, FCNN, DeepONet, FNO
+
+python3 plot_all_comparison.py
 ```
 
 ## Результаты
 
 | Модель | L2 Error | Время | Framework |
 |--------|----------|-------|-----------|
-| **PINN** | 0.00323 (0.32%) | 575 сек | TensorFlow |
+| **FCNN** | 0.00323 (0.32%) | 575 сек | TensorFlow |
 | **DeepONet** | 0.0062 (0.62%) | 600 сек | TensorFlow |
 | **FNO** | **0.0011 (0.11%)** | **120 сек** | PyTorch |
 
-### Эксперимент со слоями PINN
+### Эксперимент со слоями FCNN
 
 | Архитектура | L2 Error |
 |-------------|----------|
@@ -122,7 +128,7 @@ python3 experiments/visualize_analytic.py
 ## Выводы
 
 1. **FNO** — лучший по точности (0.11%) и скорости (120 сек)
-2. **PINN** — надёжная физически информированная сеть (0.32%)
+2. **FCNN** — полносвязная нейронная сеть с физикой в функции потерь (0.32%)
 3. **DeepONet** — потенциал для операторного обучения (0.62%)
 
 ## Характеристики оборудования
@@ -131,11 +137,4 @@ python3 experiments/visualize_analytic.py
 - **Процессор:** Intel Core i5-12450H (12 ядер, до 4.4 ГГц)
 - **ОЗУ:** 16 ГБ
 - **GPU:** не использовался
-
-
-## Автор
-
-**Жувангараева Мадина Ермуратовна**  
-Группа М80-105СВ-25, МАИ  
-Преподаватель: Стрижак Сергей Владимирович
 
